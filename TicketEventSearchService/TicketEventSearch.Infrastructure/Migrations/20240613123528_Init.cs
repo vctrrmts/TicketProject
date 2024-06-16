@@ -235,6 +235,16 @@ namespace TicketEventSearch.Infrastructure.Migrations
                 name: "IX_Tickets_TicketStatusId",
                 table: "Tickets",
                 column: "TicketStatusId");
+
+            migrationBuilder.InsertData(
+                table: "TicketStatuses",
+                columns: new[] { "TicketStatusId", "Name" },
+                values: new object[,]
+                {
+                                { 1, "Free" },
+                                { 2, "Unavailable" },
+                                { 3, "Ordered" },
+                });
         }
 
         /// <inheritdoc />
