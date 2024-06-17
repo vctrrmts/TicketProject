@@ -5,6 +5,7 @@ using UsersManagement.API.Middlewares;
 using UsersManagement.Application;
 using UsersManagement.Infrastructure.Persistence;
 using System.Reflection;
+using UsersManagement.Infrastructure.ExternalProviders;
 
 namespace UsersManagement.API;
 
@@ -27,6 +28,7 @@ public class Program
                 .AddApiServices(Assembly.GetExecutingAssembly(), builder.Configuration)
                 .AddPersistenceServices(builder.Configuration)
                 .AddApplicationServices()
+                .AddExternalRepositories()
                 .AddHttpClient();
 
             var app = builder.Build();

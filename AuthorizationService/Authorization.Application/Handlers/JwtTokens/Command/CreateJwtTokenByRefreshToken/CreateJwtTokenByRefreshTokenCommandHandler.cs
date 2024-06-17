@@ -10,7 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Authorization.Application.Handlers.Command.CreateJwtTokenByRefreshToken;
+namespace Authorization.Application.Handlers.JwtToken.Command.CreateJwtTokenByRefreshToken;
 
 public class CreateJwtTokenByRefreshTokenCommandHandler : IRequestHandler<CreateJwtTokenByRefreshTokenCommand, JwtTokenDto>
 {

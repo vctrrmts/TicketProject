@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Serilog;
 using System.Text.Json;
+using UsersManagement.Application.Abstractions.ExternalRepositories;
 using UsersManagement.Application.Abstractions.Persistence;
 using UsersManagement.Application.Exceptions;
 using UsersManagement.Domain;
@@ -11,9 +12,12 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
 {
     private readonly IBaseRepository<User> _users;
 
-    public DeleteUserCommandHandler(IBaseRepository<User> users)
+    private readonly IUsersGRPCRepository _usersGRPCRepository;
+
+    public DeleteUserCommandHandler(IBaseRepository<User> users, IUsersGRPCRepository usersGRPCRepository)
     {
         _users = users;
+        _usersGRPCRepository = usersGRPCRepository;
     }
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
@@ -24,6 +28,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
         }
 
         await _users.DeleteAsync(user, cancellationToken);
+        await _usersGRPCRepository.DeleteUserAsync(user.UserId.ToString(), cancellationToken);
         Log.Information("User deleted " + JsonSerializer.Serialize(request));
     }
 }

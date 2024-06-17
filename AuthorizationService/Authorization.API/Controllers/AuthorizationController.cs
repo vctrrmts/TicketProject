@@ -1,5 +1,5 @@
-﻿using Authorization.Application.Handlers.Command.CreateJwtToken;
-using Authorization.Application.Handlers.Command.CreateJwtTokenByRefreshToken;
+﻿using Authorization.Application.Handlers.JwtToken.Command.CreateJwtToken;
+using Authorization.Application.Handlers.JwtToken.Command.CreateJwtTokenByRefreshToken;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

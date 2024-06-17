@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Authorization.Application.Handlers.Command.CreateJwtTokenByRefreshToken;
+namespace Authorization.Application.Handlers.JwtToken.Command.CreateJwtTokenByRefreshToken;
 
 public class CreateJwtTokenByRefreshTokenCommandValidator : AbstractValidator<CreateJwtTokenByRefreshTokenCommand>
 {

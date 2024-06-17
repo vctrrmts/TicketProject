@@ -4,8 +4,8 @@ using Serilog;
 using System.Text.Json.Serialization;
 using Authorization.Application;
 using Authorization.Infrastructure.Persistence;
-using Authorization.Infrastructure.ExternalProviders;
 using System.Reflection;
+using Authorization.API.gRPC;
 
 namespace Authorization.API;
 
@@ -28,8 +28,8 @@ public class Program
                 .AddApiServices(Assembly.GetExecutingAssembly(), builder.Configuration)
                 .AddPersistenceServices(builder.Configuration)
                 .AddApplicationServices()
-                .AddExternalProviders()
-                .AddHttpClient();
+                .AddHttpClient()
+                .AddGrpc();
 
             builder.Host.UseSerilog();
             var app = builder.Build();
@@ -42,6 +42,8 @@ public class Program
                 .UseAuthorization()
                 .UseHttpsRedirection()
                 .UseCors();
+
+            app.MapGrpcService<GRPCUsersService>();
 
             app.MapControllers();
 

@@ -1,4 +1,4 @@
-namespace Authorization.Infrastructure.ExternalProviders.Exceptions;
+namespace UsersManagement.Infrastructure.ExternalProviders.Exceptions;
 
 public class ExternalServiceBadResult : Exception
 {

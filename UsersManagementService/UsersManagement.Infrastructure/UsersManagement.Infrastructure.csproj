@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.63.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.64.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
@@ -20,5 +26,9 @@
     <ProjectReference Include="..\UsersManagement.Application\UsersManagement.Application.csproj" />
     <ProjectReference Include="..\UsersManagement.Domain\UsersManagement.Domain.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="gRPC\users.proto" GrpcServices="Client" />
+	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using Auth.Application.Dtos;
 using MediatR;
 
-namespace Authorization.Application.Handlers.Command.CreateJwtToken;
+namespace Authorization.Application.Handlers.JwtToken.Command.CreateJwtToken;
 
 public class CreateJwtTokenCommand : IRequest<JwtTokenDto>
 {
