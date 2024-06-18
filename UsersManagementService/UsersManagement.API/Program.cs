@@ -33,6 +33,8 @@ public class Program
 
             var app = builder.Build();
 
+            app.RunDbMigrations();
+
             app.UseCoreExceptionHandler()
                 .UseAuthExceptionHandler()
                 .UseSwagger()

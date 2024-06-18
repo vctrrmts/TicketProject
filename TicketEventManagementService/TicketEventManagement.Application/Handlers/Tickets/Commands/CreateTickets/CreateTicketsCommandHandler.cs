@@ -40,6 +40,11 @@ internal class CreateTicketsCommandHandler : IRequestHandler<CreateTicketsComman
             throw new NotFoundException($"Scheme with SchemeId = {request.SchemeId} not found");
         }
 
+        if (scheme.Seats.Count == 0)
+        {
+            throw new BadOperationException($"Scheme with SchemeId = {request.SchemeId} does not contain seats");
+        }
+
         if (!eventOwner.Location.Schemes.Contains(scheme))
         {
             throw new BadOperationException($"Scheme with SchemeId = {request.SchemeId} does not belong to event with EventId = {request.EventId}");

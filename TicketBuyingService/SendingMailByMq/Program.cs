@@ -1,18 +1,31 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using SendingMailByMq;
+using SendingMailByMq.Models;
+using SendingMailByMq.Services;
 using System.Text;
 using System.Text.Json;
-using TicketBuying.Domain;
-
-//EmailService.GenerateQrCode();
 
 var factory = new ConnectionFactory
 {
-    HostName = "localhost",
+    HostName = "my-rabbit",
     UserName = "guest",
     Password = "guest"
 };
+
+int countRetries = 0;
+while (countRetries < 6)
+{
+    try
+    {
+        using var tryConnect = factory.CreateConnection();
+        break;
+    }
+    catch (Exception)
+    {
+        Thread.Sleep(10000);
+    }
+    
+}
 
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();

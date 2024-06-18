@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EventNotifyApp": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

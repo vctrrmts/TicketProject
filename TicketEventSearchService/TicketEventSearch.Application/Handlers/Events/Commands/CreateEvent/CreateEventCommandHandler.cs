@@ -46,7 +46,7 @@ internal class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, b
                 ticketArray[i].SeatId, ticketArray[i].Price);
         }
         await _tickets.AddRangeAsync(tickets, cancellationToken);
-        Log.Information("Event with tickets added " + JsonSerializer.Serialize(newEvent));
+        Log.Information("Event with tickets added " + newEvent.EventId);
 
         _cleanEventCacheService.ClearListEventCaches();
         return true;

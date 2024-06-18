@@ -21,7 +21,8 @@ public static class DependencyInjection
             .AddTransient<IBaseRepository<Location>, BaseRepository<Location>>()
             .AddTransient<IBaseRepository<Scheme>, BaseRepository<Scheme>>()
             .AddTransient<IBaseRepository<Seat>, BaseRepository<Seat>>()
-            .AddTransient<IBaseRepository<Category>, BaseRepository<Category>>();
+            .AddTransient<IBaseRepository<Category>, BaseRepository<Category>>()
+            .AddScoped<IDatabaseMigrator, DatabaseMigrator>();
 
     }
 }

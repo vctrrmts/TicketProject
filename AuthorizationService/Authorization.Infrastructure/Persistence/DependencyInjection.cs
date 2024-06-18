@@ -17,7 +17,8 @@ public static class DependencyInjection
             })
             .AddScoped<IContextTransactionCreator, ContextTransactionCreator>()
             .AddTransient<IBaseRepository<User>, BaseRepository<User>>()
-            .AddTransient<IBaseRepository<RefreshToken>, BaseRepository<RefreshToken>>();
+            .AddTransient<IBaseRepository<RefreshToken>, BaseRepository<RefreshToken>>()
+            .AddScoped<IDatabaseMigrator, DatabaseMigrator>();
 
     }
 }

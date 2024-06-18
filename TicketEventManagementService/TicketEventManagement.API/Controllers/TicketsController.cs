@@ -13,7 +13,7 @@ namespace TicketEventManagement.API.Controllers;
 /// Tickets management controller
 /// </summary>
 [Authorize]
-[Route("Ticket")]
+[Route("Manage/Tickets")]
 [ApiController]
 public class TicketsController : ControllerBase
 {

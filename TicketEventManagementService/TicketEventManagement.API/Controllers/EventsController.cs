@@ -15,7 +15,7 @@ namespace TicketEventManagement.API.Controllers;
 /// Events management controller
 /// </summary>
 [Authorize]
-[Route("Events")]
+[Route("Manage/Events")]
 [ApiController]
 public class EventsController : ControllerBase
 {

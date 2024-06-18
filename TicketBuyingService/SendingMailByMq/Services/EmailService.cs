@@ -1,13 +1,13 @@
 ﻿using QRCoder;
+using SendingMailByMq.Models;
 using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net;
 using System.Net.Mail;
-using TicketBuying.Domain;
 
 
-namespace SendingMailByMq;
+namespace SendingMailByMq.Services;
 
 public static class EmailService
 {
@@ -25,7 +25,7 @@ public static class EmailService
             Directory.CreateDirectory(folderPath);
         }
 
-        string fileName = Path.Combine(folderPath, content +".png");
+        string fileName = Path.Combine(folderPath, content + ".png");
         qrCodeImage.Save(fileName, ImageFormat.Png);
 
         return fileName;

@@ -11,7 +11,7 @@ namespace TicketEventManagement.API.Controllers;
 /// Scheme's seats management controller
 /// </summary>
 [Authorize]
-[Route("Seats")]
+[Route("Manage/Seats")]
 [ApiController]
 public class SeatsController : ControllerBase
 {

@@ -14,7 +14,7 @@ namespace TicketEventManagement.API.Controllers;
 /// Cities management controller
 /// </summary>
 [Authorize]
-[Route("Cities")]
+[Route("Manage/Cities")]
 [ApiController]
 public class CitiesController : ControllerBase
 {

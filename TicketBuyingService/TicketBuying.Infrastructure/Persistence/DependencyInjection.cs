@@ -18,7 +18,8 @@ public static class DependencyInjection
             })
             .AddScoped<IContextTransactionCreator, ContextTransactionCreator>()
             .AddTransient<IBaseRepository<BuyedTicket>, BaseRepository<BuyedTicket>>()
-            .AddTransient<IMqService, MqService>();
+            .AddTransient<IMqService, MqService>()
+            .AddScoped<IDatabaseMigrator, DatabaseMigrator>();
 
     }
 }

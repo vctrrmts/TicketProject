@@ -34,6 +34,8 @@ public class Program
             builder.Host.UseSerilog();
             var app = builder.Build();
 
+            app.RunDbMigrations();
+
             app.UseCoreExceptionHandler()
                 .UseAuthExceptionHandler()
                 .UseSwagger()

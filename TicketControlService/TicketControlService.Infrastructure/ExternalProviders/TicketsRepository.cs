@@ -25,7 +25,7 @@ public class TicketsRepository : ITicketsRepository
     public async Task<Ticket> GetTicketAsync(string hashFromQR, CancellationToken cancellationToken)
     {
         var ticketServiceUrl = _configuration["TicketBuyingServiceApiUrl"];
-        var ticketBuyingApiMethodUrl = $"{ticketServiceUrl}/Verify";
+        var ticketBuyingApiMethodUrl = $"{ticketServiceUrl}/Tickets/Verify";
         var command = new VerifyCommand { HashGuid = hashFromQR };
         JsonContent content = JsonContent.Create(command);
         var responseMessage = await _httpClient.PostAsync(ticketBuyingApiMethodUrl, content, cancellationToken);

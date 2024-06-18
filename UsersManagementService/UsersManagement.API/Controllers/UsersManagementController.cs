@@ -102,10 +102,5 @@ namespace UsersManagement.API.Controllers
         }
         #endregion
 
-
-
-
-
-
     }
 }

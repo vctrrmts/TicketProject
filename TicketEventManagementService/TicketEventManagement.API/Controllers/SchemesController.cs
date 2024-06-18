@@ -14,7 +14,7 @@ namespace TicketEventManagement.API.Controllers;
 /// Schemes management controller
 /// </summary>
 [Authorize]
-[Route("Schemes")]
+[Route("Manage/Schemes")]
 [ApiController]
 public class SchemesController : ControllerBase
 {

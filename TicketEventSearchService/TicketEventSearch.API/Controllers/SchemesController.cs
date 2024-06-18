@@ -11,7 +11,7 @@ namespace TicketEventSearch.API.Controllers;
 /// Schemes search controller
 /// </summary>
 [Authorize]
-[Route("Schemes")]
+[Route("Search/Schemes")]
 [ApiController]
 public class SchemesController : ControllerBase
 {

@@ -14,7 +14,7 @@ namespace TicketEventManagement.API.Controllers;
 /// Categories of events management controller
 /// </summary>
 [Authorize]
-[Route("Categories")]
+[Route("Manage/Categories")]
 [ApiController]
 public class CategoriesController : ControllerBase
 {

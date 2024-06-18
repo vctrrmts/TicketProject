@@ -15,7 +15,8 @@ public static class DependencyInjection
                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
            })
            .AddScoped<IContextTransactionCreator, ContextTransactionCreator>()
-           .AddTransient<IBaseRepository<Ticket>, BaseRepository<Ticket>>();
+           .AddTransient<IBaseRepository<Ticket>, BaseRepository<Ticket>>()
+            .AddScoped<IDatabaseMigrator, DatabaseMigrator>();
 
     }
 }

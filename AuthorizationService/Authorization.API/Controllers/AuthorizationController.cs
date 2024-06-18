@@ -10,7 +10,7 @@ namespace Authorization.API.Controllers;
 /// Authorization controller
 /// </summary>
 [Authorize]
-[Route("auth")]
+[Route("Auth/Jwt")]
 [ApiController]
 public class AuthorizationController : ControllerBase
 {
@@ -30,10 +30,6 @@ public class AuthorizationController : ControllerBase
     /// <summary>
     /// Create Jwt Token by Refresh token
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="mediator"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     [HttpPost("CreateJwtTokenByRefreshToken")]
     public async Task<IActionResult> CreateJwtToken(
         CreateJwtTokenByRefreshTokenCommand command,

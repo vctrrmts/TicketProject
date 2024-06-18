@@ -10,7 +10,7 @@ namespace TicketControlService.API.Controllers;
 /// Ticket Control Controller
 /// </summary>
 [Authorize]
-[Route("TicketControl")]
+[Route("Control/Tickets")]
 [ApiController]
 public class TicketController : ControllerBase
 {

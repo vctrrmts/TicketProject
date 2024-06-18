@@ -1,24 +1,20 @@
 ﻿using EventNotifyApp.ExternalProviders;
 using EventNotifyApp.Services;
+using System.Configuration;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
 class Program
 {
-    private static string login = string.Empty;
-    private static string password = string.Empty;
     static void Main()
     {
-        TryAuthorize();
-
         Timer timer = new Timer();
-        int intervalInMinutes = 20;
+        int intervalInMinutes = 5;
         timer.Interval = intervalInMinutes * 60000;
         timer.Elapsed += Timer_Elapsed;
         timer.Start();
 
-        Console.ReadKey();
-        timer.Stop();
+        Console.Read();
     }
 
     static async void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -39,7 +35,9 @@ class Program
 
                 #region Check is notification have been sent
                 AuthProvider authProvider = new AuthProvider(client);
-                var accessToken = await authProvider.CreateJwtTokenAsync(login, password);
+                var accessToken = await authProvider.CreateJwtTokenAsync(
+                    ConfigurationManager.AppSettings["LoginJwt"]!, 
+                    ConfigurationManager.AppSettings["PasswordJwt"]!);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
                 var notifiedEvents = await eventsRepository.GetNotifiedEventsAsync();
@@ -71,41 +69,6 @@ class Program
             catch (Exception ex)
             {
                 Console.WriteLine(DateTime.Now + " " + ex.Message);
-            }
-        }
-    }
-
-    static async void TryAuthorize()
-    {
-        bool authorized = false;
-
-        using (var client = new HttpClient())
-        {
-            while (authorized == false)
-            {
-                Console.WriteLine("Login: ");
-                login = Console.ReadLine()!;
-                Console.WriteLine("Password: ");
-                password = Console.ReadLine()!;
-
-                try
-                {
-                    AuthProvider authProvider = new AuthProvider(client);
-                    var accessToken = await authProvider.CreateJwtTokenAsync(login, password);
-                    if (!string.IsNullOrEmpty(accessToken))
-                    {
-                        authorized = true;
-                        Console.Clear();
-                        Console.WriteLine("Authorized.");
-                        Console.WriteLine("Press any key to leave.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.Clear();
-                    Console.WriteLine($"{ex.Message}");
-
-                }
             }
         }
     }

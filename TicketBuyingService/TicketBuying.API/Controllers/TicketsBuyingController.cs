@@ -11,7 +11,7 @@ namespace TicketBuying.API.Controllers
     /// Ticket buying controller
     /// </summary>
     [Authorize]
-    [Route("Buy")]
+    [Route("Buy/Tickets")]
     [ApiController]
     public class TicketsBuyingController : ControllerBase
     {

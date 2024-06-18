@@ -4,11 +4,18 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>dc49e464-c841-4ed0-9414-34668600a763</ProjectGuid>
+    <ProjectGuid>0b52c143-dbb5-4c03-bbb8-7ed19ceed020</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceName>auth.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="launchSettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
     <None Include="docker-compose.yml" />
   </ItemGroup>
 </Project>

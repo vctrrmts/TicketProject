@@ -10,7 +10,7 @@ namespace Notification.API.Controllers;
 /// Notification events controller
 /// </summary>
 [Authorize]
-[Route("Events")]
+[Route("Notify/Events")]
 [ApiController]
 public class EventsController : ControllerBase
 {

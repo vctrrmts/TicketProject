@@ -18,7 +18,7 @@ namespace EventNotifyApp.ExternalProviders
         public async Task<BuyedTicket[]> GetBuyedTicketsByEventAsync(Guid eventId)
         {
             var ticketBuyingServiceUrl = ConfigurationManager.AppSettings["TicketBuyingServiceApiUrl"]!;
-            var ticketBuyingApiMethodUrl = $"{ticketBuyingServiceUrl}/Buy/EventId/{eventId}/Tickets";
+            var ticketBuyingApiMethodUrl = $"{ticketBuyingServiceUrl}/Tickets/EventId/{eventId}/Tickets";
             var responseMessage = await _httpClient.GetAsync(ticketBuyingApiMethodUrl);
 
             if (!responseMessage.IsSuccessStatusCode)

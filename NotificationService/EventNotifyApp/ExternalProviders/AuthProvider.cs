@@ -18,7 +18,7 @@ public class AuthProvider
     public async Task<string> CreateJwtTokenAsync(string login, string password)
     {
         var authServiceUrl = ConfigurationManager.AppSettings["AuthorizationServiceApiUrl"]!;
-        var authApiMethodUrl = $"{authServiceUrl}/auth/CreateJwtToken";
+        var authApiMethodUrl = $"{authServiceUrl}/Jwt/CreateJwtToken";
 
         var command = new CreateTokenDto 
         { 

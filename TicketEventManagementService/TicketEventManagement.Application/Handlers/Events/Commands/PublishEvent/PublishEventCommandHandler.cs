@@ -42,6 +42,11 @@ internal class PublishEventCommandHandler : IRequestHandler<PublishEventCommand>
             throw new BadOperationException($"Event with EventId = {request.EventId} already published");
         }
 
+        if (eventById.Tickets.Count == 0)
+        {
+            throw new BadOperationException($"Event with EventId = {request.EventId} has no tickets" );
+        }
+
         if (eventById.Tickets.Any(x=>x.Price is null))
         {
             throw new BadOperationException($"Not all tickets have price where EventId = {request.EventId}");
