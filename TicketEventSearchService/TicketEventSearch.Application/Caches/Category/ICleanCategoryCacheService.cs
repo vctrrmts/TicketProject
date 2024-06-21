@@ -1,6 +1,6 @@
 ﻿namespace TicketEventSearch.Application.Caches.Category;
 
-internal interface ICleanCategoryCacheService
+public interface ICleanCategoryCacheService
 {
     void ClearListCategoryCaches();
     void ClearAllCategoryCaches();

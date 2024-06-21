@@ -6,7 +6,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Schemes.Commands.CreateScheme;
 
-internal class CreateSchemeCommandHandler : IRequestHandler<CreateSchemeCommand>
+public class CreateSchemeCommandHandler : IRequestHandler<CreateSchemeCommand>
 {
     private readonly IBaseRepository<Scheme> _schemes;
 

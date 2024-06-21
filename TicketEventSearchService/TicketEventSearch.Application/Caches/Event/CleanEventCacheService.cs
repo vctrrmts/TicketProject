@@ -2,7 +2,7 @@ using TicketEventSearch.Application.Abstractions.Caches.Event;
 
 namespace TicketEventSearch.Application.Caches.Event;
 
-internal class CleanEventCacheService : ICleanEventCacheService
+public class CleanEventCacheService : ICleanEventCacheService
 {
     private readonly IEventCache _eventCache;
 

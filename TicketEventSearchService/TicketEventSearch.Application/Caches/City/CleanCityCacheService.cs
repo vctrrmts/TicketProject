@@ -2,7 +2,7 @@
 
 namespace TicketEventSearch.Application.Caches.City;
 
-internal class CleanCityCacheService : ICleanCityCacheService
+public class CleanCityCacheService : ICleanCityCacheService
 {
     private readonly ICityCache _cityCache;
     private readonly ICityListCache _cityListCache;

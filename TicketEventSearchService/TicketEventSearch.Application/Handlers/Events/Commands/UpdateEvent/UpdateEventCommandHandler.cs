@@ -10,7 +10,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Events.Commands.UpdateEvent;
 
-internal class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, GetEventDto>
+public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, GetEventDto>
 {
     private readonly IBaseRepository<Event> _events;
 

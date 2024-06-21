@@ -8,7 +8,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Locations.Commands.DeleteLocation;
 
-internal class DeleteLocationCommandHandler : IRequestHandler<DeleteLocationCommand>
+public class DeleteLocationCommandHandler : IRequestHandler<DeleteLocationCommand>
 {
     private readonly IBaseRepository<Location> _locations;
 

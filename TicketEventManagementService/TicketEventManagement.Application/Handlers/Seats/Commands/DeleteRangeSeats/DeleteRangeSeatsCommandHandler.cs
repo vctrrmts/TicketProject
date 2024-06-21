@@ -56,8 +56,9 @@ public class DeleteRangeSeatsCommandHandler : IRequestHandler<DeleteRangeSeatsCo
         await _seats.DeleteRangeAsync(seats, cancellationToken);
 
         string accessToken = _currentUserService.AccessToken;
-        await _seatsRepository.RemoveRangeOfSeatsAsync(
-                _mapper.Map<ICollection<SeatForExportDto>>(seats).ToArray(), accessToken, cancellationToken);
+
+        var seatIds = seats.Select(x => x.SeatId).ToArray();
+        await _seatsRepository.RemoveRangeOfSeatsAsync(seatIds, accessToken, cancellationToken);
 
         Log.Information("Range of seats deleted " + JsonSerializer.Serialize(request));
     }

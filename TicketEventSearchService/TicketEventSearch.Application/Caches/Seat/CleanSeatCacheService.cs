@@ -2,7 +2,7 @@
 
 namespace TicketEventSearch.Application.Caches.Seat;
 
-internal class CleanSeatCacheService : ICleanSeatCacheService
+public class CleanSeatCacheService : ICleanSeatCacheService
 {
     private readonly ISeatCache _seatCache;
 

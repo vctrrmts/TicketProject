@@ -8,7 +8,7 @@ using TicketEventSearch.Application.Abstractions.Caches.Location;
 
 namespace TicketEventSearch.Application.Handlers.Locations.Queries.GetLocation;
 
-internal class GetLocationByIdQueryHandler : BaseCashedQuery<GetLocationByIdQuery, GetLocationDto>
+public class GetLocationByIdQueryHandler : BaseCashedQuery<GetLocationByIdQuery, GetLocationDto>
 {
     private readonly IBaseRepository<Location> _locations;
 

@@ -8,7 +8,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Categories.Commands.DeleteCategory;
 
-internal class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>
+public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>
 {
     private readonly IBaseRepository<Category> _categories;
 

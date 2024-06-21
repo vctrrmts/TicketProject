@@ -43,13 +43,13 @@ namespace TicketEventManagement.Infrastructure.ExternalRepositories.Relizations
             }
         }
 
-        public async Task RemoveRangeOfSeatsAsync(SeatForExportDto[] seats, string accessToken
+        public async Task RemoveRangeOfSeatsAsync(Guid[] seatIds, string accessToken
             , CancellationToken cancellationToken)
         {
             _httpClient.DefaultRequestHeaders.Add("Authorization", accessToken);
             var ticketSearchServiceUrl = _configuration["SearchServiceSeatsApiUrl"];
             var RemoveRangeOfSeatsApiMethodUrl = $"{ticketSearchServiceUrl}/RemoveSeats";
-            JsonContent content = JsonContent.Create(seats);
+            JsonContent content = JsonContent.Create(seatIds);
             var responseMessage = await _httpClient.PostAsync(RemoveRangeOfSeatsApiMethodUrl, content, cancellationToken);
             if (!responseMessage.IsSuccessStatusCode)
             {

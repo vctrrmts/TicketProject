@@ -7,7 +7,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Seats.Queries.GetListSeats;
 
-internal class GetListSeatsQueryHandler : BaseCashedQuery<GetListSeatsQuery, IReadOnlyCollection<GetSeatDto>>
+public class GetListSeatsQueryHandler : BaseCashedQuery<GetListSeatsQuery, IReadOnlyCollection<GetSeatDto>>
 {
     private readonly IBaseRepository<Seat> _seats;
 

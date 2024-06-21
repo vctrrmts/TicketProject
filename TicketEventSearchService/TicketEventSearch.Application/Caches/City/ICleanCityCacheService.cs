@@ -1,6 +1,6 @@
 ﻿namespace TicketEventSearch.Application.Caches.City;
 
-internal interface ICleanCityCacheService
+public interface ICleanCityCacheService
 {
     void ClearListCityCaches();
     void ClearAllCityCaches();

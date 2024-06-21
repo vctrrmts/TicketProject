@@ -2,7 +2,7 @@
 
 namespace TicketEventSearch.Application.Caches.Location;
 
-internal class CleanLocationCacheService : ICleanLocationCacheService
+public class CleanLocationCacheService : ICleanLocationCacheService
 {
     private readonly ILocationCache _locationCache;
     private readonly ILocationListCache _locationListCache;

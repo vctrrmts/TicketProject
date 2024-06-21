@@ -7,7 +7,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Locations.Commands.CreateLocation;
 
-internal class CreateLocationCommandHandler : IRequestHandler<CreateLocationCommand>
+public class CreateLocationCommandHandler : IRequestHandler<CreateLocationCommand>
 {
     private readonly IBaseRepository<Location> _locations;
 

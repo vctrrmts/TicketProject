@@ -5,5 +5,5 @@ namespace TicketEventSearch.Application.Handlers.Seats.Commands.DeleteRangeSeats
 
 public class DeleteRangeSeatsCommand : IRequest
 {
-    public SeatForExportDto[] Seats { get; set; } = default!;
+    public Guid[] Seats { get; set; } = default!;
 }

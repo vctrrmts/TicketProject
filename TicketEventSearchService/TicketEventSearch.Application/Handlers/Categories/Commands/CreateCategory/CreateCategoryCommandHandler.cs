@@ -10,7 +10,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Categories.Commands.CreateCategory;
 
-internal class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, GetCategoryDto>
+public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, GetCategoryDto>
 {
     private readonly IBaseRepository<Category> _categories;
 

@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace TicketEventSearch.Application.Handlers.Cities.Commands.CreateCity;
 
-internal class CreateCityCommandHandler : IRequestHandler<CreateCityCommand, GetCityDto>
+public class CreateCityCommandHandler : IRequestHandler<CreateCityCommand, GetCityDto>
 {
     private readonly IBaseRepository<City> _cities;
 

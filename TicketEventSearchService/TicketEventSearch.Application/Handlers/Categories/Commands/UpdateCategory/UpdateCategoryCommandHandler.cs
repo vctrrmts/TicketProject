@@ -10,7 +10,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Categories.Commands.UpdateCategory;
 
-internal class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, GetCategoryDto>
+public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand, GetCategoryDto>
 {
     private readonly IBaseRepository<Category> _categories;
 

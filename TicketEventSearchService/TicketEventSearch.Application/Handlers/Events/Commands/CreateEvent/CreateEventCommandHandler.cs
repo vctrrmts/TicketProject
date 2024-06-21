@@ -8,13 +8,12 @@ using System.Text.Json;
 
 namespace TicketEventSearch.Application.Handlers.Events.Commands.CreateEvent;
 
-internal class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, bool>
+public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, bool>
 {
     private readonly IBaseRepository<Event> _events;
     private readonly IBaseRepository<Ticket> _tickets;
 
     private readonly ICleanEventCacheService _cleanEventCacheService;
-    private readonly ICleanTicketCacheService _cleanTicketCacheService;
 
     public CreateEventCommandHandler(IBaseRepository<Event> events, IBaseRepository<Ticket> tickets,
         ICleanEventCacheService cleanEventCacheService)

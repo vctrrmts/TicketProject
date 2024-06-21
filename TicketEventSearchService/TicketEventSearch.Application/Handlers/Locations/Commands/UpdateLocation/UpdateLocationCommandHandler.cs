@@ -8,7 +8,7 @@ using TicketEventSearch.Domain;
 
 namespace TicketEventSearch.Application.Handlers.Locations.Commands.UpdateLocation;
 
-internal class UpdateLocationCommandHandler : IRequestHandler<UpdateLocationCommand>
+public class UpdateLocationCommandHandler : IRequestHandler<UpdateLocationCommand>
 {
     private readonly IBaseRepository<Location> _locations;
 

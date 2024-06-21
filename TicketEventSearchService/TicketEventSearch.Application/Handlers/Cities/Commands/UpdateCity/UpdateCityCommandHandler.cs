@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace TicketEventSearch.Application.Handlers.Cities.Commands.UpdateCity;
 
-internal class UpdateCityCommandHandler : IRequestHandler<UpdateCityCommand, GetCityDto>
+public class UpdateCityCommandHandler : IRequestHandler<UpdateCityCommand, GetCityDto>
 {
     private readonly IBaseRepository<City> _cities;
 

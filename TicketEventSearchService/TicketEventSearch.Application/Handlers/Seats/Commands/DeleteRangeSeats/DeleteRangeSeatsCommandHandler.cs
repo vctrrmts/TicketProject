@@ -22,17 +22,10 @@ public class DeleteRangeSeatsCommandHandler : IRequestHandler<DeleteRangeSeatsCo
 
     public async Task Handle(DeleteRangeSeatsCommand request, CancellationToken cancellationToken)
     {
-        Guid[] seatsIdArray = new Guid[request.Seats.Length];
-
-        for (int i = 0; i < request.Seats.Length; i++)
-        {
-            seatsIdArray[i] = request.Seats[i].SeatId;
-        }
-
         var seatsForDelete = await _seats.GetListAsync(
             null,
             null,
-            e => seatsIdArray.Contains(e.SeatId),
+            e => request.Seats.Contains(e.SeatId),
             null,
             false,
             cancellationToken);

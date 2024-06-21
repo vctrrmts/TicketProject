@@ -2,7 +2,7 @@
 
 namespace TicketEventSearch.Application.Caches.Category;
 
-internal class CleanCategoryCacheService : ICleanCategoryCacheService
+public class CleanCategoryCacheService : ICleanCategoryCacheService
 {
     private readonly ICategoryCache _categoryCache;
     private readonly ICategoryListCache _categoryListCache;

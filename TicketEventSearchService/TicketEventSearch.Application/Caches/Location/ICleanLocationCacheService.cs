@@ -1,6 +1,6 @@
 ﻿namespace TicketEventSearch.Application.Caches.Location;
 
-internal interface ICleanLocationCacheService
+public interface ICleanLocationCacheService
 {
     void ClearListLocationCaches();
     void ClearAllLocationCaches();
