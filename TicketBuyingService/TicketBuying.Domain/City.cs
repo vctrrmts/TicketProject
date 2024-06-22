@@ -1,6 +1,6 @@
-﻿namespace TicketEventSearch.Application.DTOs;
+﻿namespace TicketBuying.Domain;
 
-public class GetCityDto
+public class City
 {
     public Guid CityId { get; set; }
 

@@ -6,7 +6,7 @@ public class BuyTicketCommandValidator : AbstractValidator<BuyTicketCommand>
 {
     public BuyTicketCommandValidator() 
     {
-        RuleFor(b=>b.TicketId).NotEmpty();
+        RuleFor(b=>b.TicketIds).NotEmpty();
         RuleFor(b=>b.Mail).NotEmpty();
     }
 }

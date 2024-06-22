@@ -4,5 +4,5 @@ namespace TicketBuying.Application.Abstractions.ExternalProviders;
 
 public interface ITicketsRepository
 {
-    Task<Ticket> UpdateTicketStatusAsync(Guid ticketId, CancellationToken cancellationToken);
+    Task<Ticket[]> UpdateTicketsStatusAsync(Guid[] ticketId, CancellationToken cancellationToken);
 }

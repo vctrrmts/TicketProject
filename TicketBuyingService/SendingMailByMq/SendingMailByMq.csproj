@@ -10,15 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.PDF.Drawing" Version="24.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="QRCoder" Version="1.4.1" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TicketBuying.Domain\TicketBuying.Domain.csproj" />
+    <Folder Include="Fonts\" />
   </ItemGroup>
 
 </Project>

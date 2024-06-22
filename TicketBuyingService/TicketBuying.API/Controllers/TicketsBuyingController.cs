@@ -21,10 +21,16 @@ namespace TicketBuying.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> BuyTicketAsync(
-            [FromQuery] BuyTicketCommand buyTicketCommand,
+            [FromQuery] string mail,
+            [FromBody] Guid[] tickets,
             IMediator mediator,
             CancellationToken cancellationToken)
         {
+            var buyTicketCommand = new BuyTicketCommand() 
+            {
+                TicketIds = tickets,
+                Mail = mail
+            };
             await mediator.Send(buyTicketCommand, cancellationToken);
             return Ok();
         }

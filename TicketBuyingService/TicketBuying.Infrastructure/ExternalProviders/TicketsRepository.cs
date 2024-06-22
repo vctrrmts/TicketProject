@@ -22,11 +22,11 @@ public class TicketsRepository : ITicketsRepository
         _httpClient = httpClientFactory.CreateClient();
     }
 
-    public async Task<Ticket> UpdateTicketStatusAsync(Guid ticketId, CancellationToken cancellationToken)
+    public async Task<Ticket[]> UpdateTicketsStatusAsync(Guid[] ticketIds, CancellationToken cancellationToken)
     {
         var ticketServiceUrl = _configuration["TicketSearchServiceApiUrl"];
         var ticketManagementApiMethodUrl = $"{ticketServiceUrl}/Status";
-        var command = new { TicketId = ticketId, TicketStatusId = 3 };
+        var command = new { TicketIds = ticketIds, TicketStatusId = 3 };
         JsonContent content = JsonContent.Create(command);
         var responseMessage = await _httpClient.PutAsync(ticketManagementApiMethodUrl, content, cancellationToken);
 
@@ -43,11 +43,11 @@ public class TicketsRepository : ITicketsRepository
         }
 
         var jsonResult = await responseMessage.Content.ReadAsStringAsync(cancellationToken);
-        var ticketDto = JsonSerializer.Deserialize<Ticket>(jsonResult, new JsonSerializerOptions
+        var ticketsDto = JsonSerializer.Deserialize<Ticket[]>(jsonResult, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         });
 
-        return ticketDto;
+        return ticketsDto;
     }
 }

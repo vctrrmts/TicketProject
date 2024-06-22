@@ -7,10 +7,12 @@ using TicketEventSearch.Domain.Enums;
 using AutoMapper;
 using System.Text.Json;
 using Serilog;
+using System.Linq.Expressions;
 
 namespace TicketEventSearch.Application.Handlers.Tickets.Commands.UpdateTicketStatus;
 
-public class UpdateTicketStatusCommandHandler : IRequestHandler<UpdateTicketStatusCommand, GetTicketForSentMailDto>
+public class UpdateTicketStatusCommandHandler : 
+    IRequestHandler<UpdateTicketStatusCommand, IReadOnlyCollection<GetTicketForSentMailDto>>
 {
     private readonly IBaseRepository<Ticket> _tickets;
 
@@ -26,36 +28,44 @@ public class UpdateTicketStatusCommandHandler : IRequestHandler<UpdateTicketStat
         _mapper = mapper;
     }
 
-    public async Task<GetTicketForSentMailDto> Handle(UpdateTicketStatusCommand request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<GetTicketForSentMailDto>> Handle(UpdateTicketStatusCommand request, CancellationToken cancellationToken)
     {
-        Ticket? ticket = await _tickets.SingleOrDefaultAsync(x => x.TicketId == request.TicketId,
-            cancellationToken);
-        if (ticket == null)
+        var tickets = await _tickets.GetListAsync(default, default, x => request.TicketIds.Contains(x.TicketId),
+            default,default,cancellationToken);
+
+        foreach (var ticketId in request.TicketIds)
         {
-            throw new NotFoundException($"Ticket with TicketId = {request.TicketId} not found");
+            if (tickets.SingleOrDefault(x=>x.TicketId == ticketId) is null)
+            {
+                throw new NotFoundException($"Ticket with TicketId = {ticketId} not found");
+            }
+
+            if (tickets.Single(x => x.TicketId == ticketId).TicketStatusId == (int)TicketStatusEnum.Ordered)
+            {
+                throw new BadOperationException($"Ticket with TicketId = {ticketId} already ordered");
+            }
         }
 
-        if (ticket.TicketStatusId == (int)TicketStatusEnum.Ordered)
+        foreach (var ticket in tickets)
         {
-            throw new BadOperationException($"Ticket with TicketId = {request.TicketId} already ordered");
+            ticket.UpdateStatusId(request.TicketStatusId);
+
+            if (request.TicketStatusId == (int)TicketStatusEnum.Unavailable)
+            {
+                ticket.UpdateUnavailableStatusEnd(DateTime.UtcNow.AddMinutes(10));
+            }
+            else
+            {
+                ticket.UpdateUnavailableStatusEnd(null);
+            }
+
+            await _tickets.UpdateAsync(ticket, cancellationToken);
+            Log.Information("Ticket status updated " + JsonSerializer.Serialize(request));
         }
 
-        ticket.UpdateStatusId(request.TicketStatusId);
-
-        if (request.TicketStatusId == (int)TicketStatusEnum.Unavailable)
-        {
-            ticket.UpdateUnavailableStatusEnd(DateTime.UtcNow.AddMinutes(10));
-        }
-        else
-        {
-            ticket.UpdateUnavailableStatusEnd(null);
-        }
-
-        await _tickets.UpdateAsync(ticket, cancellationToken);
-        Log.Information("Ticket status updated " + JsonSerializer.Serialize(request));
 
         _cleanTicketCacheService.ClearAllTicketCaches();
 
-        return _mapper.Map<GetTicketForSentMailDto>(ticket);
+        return _mapper.Map<IReadOnlyCollection<GetTicketForSentMailDto>>(tickets);
     }
 }

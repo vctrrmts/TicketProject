@@ -32,16 +32,22 @@ namespace TicketBuying.Application.Handlers.Commands.BuyTicket
                 throw new BadOperationException($"Incorrect Mail Address {request.Mail}");
             }
 
-            var ticket = await _ticketsRepository.UpdateTicketStatusAsync(request.TicketId, cancellationToken);
+            var tickets = await _ticketsRepository.UpdateTicketsStatusAsync(request.TicketIds, cancellationToken);
 
-            var buyedTicket = new BuyedTicket(ticket.TicketId, ticket.EventId, ticket.Price, request.Mail, 
-                HashUtil.GetHashGuid(ticket.TicketId.ToString()));
+            foreach (var ticket in tickets)
+            {
+                var ticketIdHash = HashUtil.GetHashGuid(ticket.TicketId.ToString());
 
-            await _tickets.AddAsync(buyedTicket, cancellationToken);
-            Log.Information("Ticket buyed " + JsonSerializer.Serialize(request));
+                var buyedTicket = new BuyedTicket(ticket.TicketId, ticket.EventId, ticket.Price,
+                    request.Mail, ticketIdHash);
 
-            ticket.Mail = request.Mail;
-            _mqService.SendMessageToExchange("PurchasedTicketExchange", JsonSerializer.Serialize(ticket));
+                await _tickets.AddAsync(buyedTicket, cancellationToken);
+                Log.Information("Ticket buyed " + JsonSerializer.Serialize(request));
+                ticket.Mail = request.Mail;
+                ticket.HashGuid = ticketIdHash;
+            }
+            
+            _mqService.SendMessageToExchange("PurchasedTicketExchange", JsonSerializer.Serialize(tickets));
 
         }
     }

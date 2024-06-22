@@ -48,10 +48,10 @@ consumer.Received += (model, ea) =>
 {
     var body = ea.Body.ToArray();
     var message = Encoding.UTF8.GetString(body);
-    var ticket = JsonSerializer.Deserialize<Ticket>(message);
+    var tickets = JsonSerializer.Deserialize<Ticket[]>(message);
 
-    EmailService.SendEmailAsync(ticket);
-    Console.WriteLine("ticket sent to " + ticket.Mail);
+    EmailService.SendEmailAsync(tickets);
+    Console.WriteLine("ticket sent to " + tickets[0].Mail);
 };
 
 channel.BasicConsume(queue: queueName,

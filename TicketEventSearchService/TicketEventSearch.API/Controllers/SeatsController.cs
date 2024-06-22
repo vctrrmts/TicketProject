@@ -36,7 +36,7 @@ public class SeatsController : ControllerBase
     /// </summary>
     [HttpPost("RemoveSeats")]
     public async Task<IActionResult> DeleteRangeOfSeatsAsync(
-        SeatForExportDto[] seats,
+        Guid[] seats,
         IMediator mediator,
         CancellationToken cancellationToken)
     {

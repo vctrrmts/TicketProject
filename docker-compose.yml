@@ -112,16 +112,16 @@ services:
       - "8087:8080"
 
 
-  sendingmailbymq:
-    image: ${DOCKER_REGISTRY-}sendingmailbymq
-    build:
-      context: .
-      dockerfile: TicketBuyingService/SendingMailByMq/Dockerfile
-
-
   eventnotifyapp:
     image: ${DOCKER_REGISTRY-}eventnotifyapp
     build:
       context: .
       dockerfile: NotificationService/EventNotifyApp/Dockerfile
+
+
+  sendingmailbymq:
+    image: ${DOCKER_REGISTRY-}sendingmailbymq
+    build:
+      context: .
+      dockerfile: TicketBuyingService/SendingMailByMq/Dockerfile
 

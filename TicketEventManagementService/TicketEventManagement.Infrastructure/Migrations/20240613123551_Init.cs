@@ -265,8 +265,8 @@ namespace TicketEventManagement.Infrastructure.Migrations
                             "8365E04D-DC59-44A0-A578-61D84349C274",
                             "Государственный оперный театр",
                             "Советская 28",
-                            "28,123",
-                            "131,123",
+                            "28.123",
+                            "131.123",
                             true
                          }
                 });
@@ -296,8 +296,8 @@ namespace TicketEventManagement.Infrastructure.Migrations
                             "Оперное выступление оперного исполнителя",
                             "Очень интересно",
                             "string.com/fasdfasdfff23f12/f123",
-                            "2024-07-18 15:00:00.0000000",
-                            "2024-07-18 17:00:00.0000000",
+                            "2024-07-18 18:00:00.0000000",
+                            "2024-07-18 20:00:00.0000000",
                             false,
                             true
                          }

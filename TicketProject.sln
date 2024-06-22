@@ -86,11 +86,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{78C6BE02-6655-4095-B576-63B6D4B5FB7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchService.UnitTests", "Tests\SearchService.UnitTests\SearchService.UnitTests.csproj", "{D7120CCF-B262-48C3-B762-8C16A2B51023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService.UnitTests", "Tests\SearchService.UnitTests\SearchService.UnitTests.csproj", "{D7120CCF-B262-48C3-B762-8C16A2B51023}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{859A7245-6FC0-4D53-960C-0F755DC0B07B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Tests", "Tests\Core\Core.Tests\Core.Tests.csproj", "{BA6F64E4-E162-4EE7-9FFB-5CA2A511435C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Tests", "Tests\Core\Core.Tests\Core.Tests.csproj", "{BA6F64E4-E162-4EE7-9FFB-5CA2A511435C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

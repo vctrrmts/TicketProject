@@ -1,11 +1,10 @@
 ﻿using MediatR;
-using TicketBuying.Domain;
 
 namespace TicketBuying.Application.Handlers.Commands.BuyTicket;
 
 public class BuyTicketCommand : IRequest
 {
-    public Guid TicketId { get; set; }
+    public Guid[] TicketIds { get; set; } = default!;
 
     public string Mail { get; set; } = default!;
 }

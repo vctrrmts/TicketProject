@@ -22,7 +22,7 @@ public class UpdateTicketStatusCommandValidatorTest : ValidatorTestBase<UpdateTi
         // arrange
         var command = new UpdateTicketStatusCommand
         {
-            TicketId = Guid.NewGuid(),
+            TicketIds = [Guid.NewGuid()],
             TicketStatusId = 1
         };
 
@@ -39,7 +39,7 @@ public class UpdateTicketStatusCommandValidatorTest : ValidatorTestBase<UpdateTi
         // arrange
         var command = new UpdateTicketStatusCommand
         {
-            TicketId = Guid.NewGuid(),
+            TicketIds = [Guid.NewGuid()],
             TicketStatusId = ticketStatus
         };
 
@@ -56,7 +56,7 @@ public class UpdateTicketStatusCommandValidatorTest : ValidatorTestBase<UpdateTi
         // arrange
         var command = new UpdateTicketStatusCommand
         {
-            TicketId = Guid.NewGuid(),
+            TicketIds = [Guid.NewGuid()],
             TicketStatusId = ticketStatus
         };
 
@@ -70,7 +70,7 @@ public class UpdateTicketStatusCommandValidatorTest : ValidatorTestBase<UpdateTi
         // arrange
         var command = new UpdateTicketStatusCommand
         {
-            TicketId = Guid.NewGuid(),
+            TicketIds = [Guid.NewGuid()],
             TicketStatusId = 1
         };
 
@@ -79,12 +79,12 @@ public class UpdateTicketStatusCommandValidatorTest : ValidatorTestBase<UpdateTi
     }
 
     [Fact]
-    public void Should_BeNotValid_When_TicketIdIsEmpty()
+    public void Should_BeNotValid_When_TicketIdsIsEmpty()
     {
         // arrange
         var command = new UpdateTicketStatusCommand
         {
-            TicketId = Guid.Empty,
+            TicketIds = [],
             TicketStatusId = 1
         };
 

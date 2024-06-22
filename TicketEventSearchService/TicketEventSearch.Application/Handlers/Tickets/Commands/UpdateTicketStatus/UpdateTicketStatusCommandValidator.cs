@@ -7,7 +7,7 @@ public class UpdateTicketStatusCommandValidator : AbstractValidator<UpdateTicket
 {
     public UpdateTicketStatusCommandValidator()
     {
-        RuleFor(e => e.TicketId).NotEmpty();
+        RuleFor(e => e.TicketIds).NotEmpty();
         RuleFor(e => e.TicketStatusId).GreaterThanOrEqualTo(1).LessThanOrEqualTo(3);
     }
 }

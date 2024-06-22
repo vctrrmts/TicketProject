@@ -15,7 +15,7 @@ using TicketEventSearch.Domain.Enums;
 
 namespace SearchService.UnitTests.Tests.Tickets.Commands.UpdateTicketStatus;
 
-public class UpdateTicketStatusCommandHandlerTest : RequestHandlerTestBase<UpdateTicketStatusCommand, GetTicketForSentMailDto>
+public class UpdateTicketStatusCommandHandlerTest : RequestHandlerTestBase<UpdateTicketStatusCommand, IReadOnlyCollection<GetTicketForSentMailDto>>
 {
     private readonly Mock<IBaseRepository<Ticket>> _ticketsMock = new();
     private readonly IMapper _mapper;
@@ -26,32 +26,86 @@ public class UpdateTicketStatusCommandHandlerTest : RequestHandlerTestBase<Updat
         _mapper = new AutoMapperFixture(typeof(GetTicketForSentMailDto).Assembly).Mapper;
     }
 
-    protected override IRequestHandler<UpdateTicketStatusCommand, GetTicketForSentMailDto> CommandHandler 
+    protected override IRequestHandler<UpdateTicketStatusCommand, IReadOnlyCollection<GetTicketForSentMailDto>> CommandHandler 
         => new UpdateTicketStatusCommandHandler(_ticketsMock.Object, _cleanTicketCacheService.Object, _mapper);
 
-    [Theory, FixtureInlineAutoData]
-    public async Task Should_BeValid(UpdateTicketStatusCommand command)
+    [Fact]
+    public async Task Should_BeValid_WhenSetStatusUnavailable()
     {
         // arrange
-        command.TicketStatusId = 2;
-        var ticket = TestFixture.Build<Ticket>().Create();
+        UpdateTicketStatusCommand command = new UpdateTicketStatusCommand()
+        {
+            TicketIds = new Guid[2],
+            TicketStatusId = 2
+        };
+
+        var tickets = TestFixture.Build<Ticket>().CreateMany(2).ToArray();
+
+        command.TicketIds[0] = tickets[0].TicketId;
+        command.TicketIds[1] = tickets[1].TicketId;
 
         _ticketsMock.Setup(
-            p => p.SingleOrDefaultAsync(It.IsAny<Expression<Func<Ticket, bool>>>(), default)
-        ).ReturnsAsync(ticket);
+            p => p.GetListAsync(default, default, It.IsAny<Expression<Func<Ticket, bool>>>(),
+            default, default, default)
+        ).ReturnsAsync(tickets);
 
-        ticket.UpdateStatusId(command.TicketStatusId);
-
-        if (command.TicketStatusId == (int)TicketStatusEnum.Unavailable)
+        foreach (var ticket in tickets)
         {
-            ticket.UpdateUnavailableStatusEnd(DateTime.UtcNow.AddMinutes(10));
-        }
-        else
-        {
-            ticket.UpdateUnavailableStatusEnd(null);
+            ticket.UpdateStatusId(command.TicketStatusId);
+
+            if (command.TicketStatusId == (int)TicketStatusEnum.Unavailable)
+            {
+                ticket.UpdateUnavailableStatusEnd(DateTime.UtcNow.AddMinutes(10));
+            }
+            else
+            {
+                ticket.UpdateUnavailableStatusEnd(null);
+            }
+
+            _ticketsMock.Setup(p => p.UpdateAsync(ticket, default)).ReturnsAsync(ticket);
         }
 
-        _ticketsMock.Setup(p => p.UpdateAsync(ticket, default)).ReturnsAsync(ticket);
+        _cleanTicketCacheService.Object.ClearAllTicketCaches();
+
+        // act and assert
+        await AssertNotThrow(command);
+    }
+
+    [Fact]
+    public async Task Should_BeValid_WhenSetStatusFree()
+    {
+        // arrange
+        UpdateTicketStatusCommand command = new UpdateTicketStatusCommand()
+        {
+            TicketIds = new Guid[2],
+            TicketStatusId = 1
+        };
+
+        var tickets = TestFixture.Build<Ticket>().CreateMany(2).ToArray();
+
+        command.TicketIds[0] = tickets[0].TicketId;
+        command.TicketIds[1] = tickets[1].TicketId;
+
+        _ticketsMock.Setup(
+            p => p.GetListAsync(default, default, It.IsAny<Expression<Func<Ticket, bool>>>(),
+            default, default, default)
+        ).ReturnsAsync(tickets);
+
+        foreach (var ticket in tickets)
+        {
+            ticket.UpdateStatusId(command.TicketStatusId);
+
+            if (command.TicketStatusId == (int)TicketStatusEnum.Unavailable)
+            {
+                ticket.UpdateUnavailableStatusEnd(DateTime.UtcNow.AddMinutes(10));
+            }
+            else
+            {
+                ticket.UpdateUnavailableStatusEnd(null);
+            }
+
+            _ticketsMock.Setup(p => p.UpdateAsync(ticket, default)).ReturnsAsync(ticket);
+        }
 
         _cleanTicketCacheService.Object.ClearAllTicketCaches();
 
@@ -64,27 +118,35 @@ public class UpdateTicketStatusCommandHandlerTest : RequestHandlerTestBase<Updat
     {
         // arrange
         _ticketsMock.Setup(
-            p => p.SingleOrDefaultAsync(It.IsAny<Expression<Func<Ticket, bool>>>(), default)
-        ).ReturnsAsync(null as Ticket);
+                    p => p.GetListAsync(default, default, It.IsAny<Expression<Func<Ticket, bool>>>(),
+                    default, default, default)
+                ).ReturnsAsync(new Ticket[0]);
 
         //// act and assert
         await AssertThrowNotFound(command);
     }
 
-    [Theory, FixtureInlineAutoData]
-    public async Task Should_ThrowNotFound_When_TicketAlreadyOrdered(UpdateTicketStatusCommand command)
+    [Fact]
+    public async Task Should_ThrowNotFound_When_TicketAlreadyOrdered()
     {
         // arrange
-        command.TicketStatusId = 2;
-        var ticket = TestFixture.Build<Ticket>().Create();
-        ticket.UpdateStatusId(3);
+        UpdateTicketStatusCommand command = new UpdateTicketStatusCommand()
+        {
+            TicketIds = new Guid[1],
+            TicketStatusId = 2
+        };
+
+        var tickets = TestFixture.Build<Ticket>().CreateMany(1).ToArray();
+        command.TicketIds[0] = tickets[0].TicketId;
+        tickets[0].UpdateStatusId(3);
 
         _ticketsMock.Setup(
-            p => p.SingleOrDefaultAsync(It.IsAny<Expression<Func<Ticket, bool>>>(), default)
-        ).ReturnsAsync(ticket);
+            p => p.GetListAsync(default, default, It.IsAny<Expression<Func<Ticket, bool>>>(),
+            default, default, default)
+        ).ReturnsAsync(tickets);
 
         //// act and assert
-        await AssertThrowBadOperation(command, $"Ticket with TicketId = {command.TicketId} already ordered");
+        await AssertThrowBadOperation(command, $"Ticket with TicketId = {command.TicketIds[0]} already ordered");
     }
 
 }
