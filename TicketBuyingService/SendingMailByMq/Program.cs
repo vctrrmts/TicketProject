@@ -2,30 +2,16 @@
 using RabbitMQ.Client.Events;
 using SendingMailByMq.Models;
 using SendingMailByMq.Services;
+using System.Configuration;
 using System.Text;
 using System.Text.Json;
 
 var factory = new ConnectionFactory
 {
-    HostName = "my-rabbit",
-    UserName = "guest",
-    Password = "guest"
+    HostName = ConfigurationManager.AppSettings["ConnectionHostName"]!,
+    UserName = ConfigurationManager.AppSettings["ConnectionUserName"]!,
+    Password = ConfigurationManager.AppSettings["ConnectionPassword"]!
 };
-
-int countRetries = 0;
-while (countRetries < 6)
-{
-    try
-    {
-        using var tryConnect = factory.CreateConnection();
-        break;
-    }
-    catch (Exception)
-    {
-        Thread.Sleep(10000);
-    }
-    
-}
 
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();

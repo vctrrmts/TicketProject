@@ -69,7 +69,7 @@ public class Event
         #endregion
 
         #region dateTimeEventStart validation
-        if (dateTimeEventStart < DateTime.UtcNow || dateTimeEventStart > DateTimeEventEnd)
+        if (dateTimeEventStart < DateTime.UtcNow || dateTimeEventStart > dateTimeEventEnd)
         {
             throw new ArgumentException("Incorrect Event Start DateTime", nameof(dateTimeEventStart));
         }

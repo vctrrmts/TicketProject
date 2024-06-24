@@ -8,7 +8,7 @@ public class Seat
     public int? Row { get; private set; }
     public int? SeatNumber { get; private set; }
     public virtual Scheme? Scheme { get; private set; }
-    public virtual ICollection<Ticket> Tickets { get; private set; }
+    public virtual ICollection<Ticket>? Tickets { get; private set; }
 
     private Seat() { }
 

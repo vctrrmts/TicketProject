@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using System.Text;
 using TicketBuying.Application.Abstractions.Service;
@@ -13,13 +14,13 @@ public class MqService : IMqService
         _logger = logger;
     }
 
-    public void SendMessageToExchange(string exchange, string message)
+    public void SendMessageToExchange(string exchange, string message, IConfiguration configuration)
     {
         var factory = new ConnectionFactory 
         {   
-            HostName = "my-rabbit",
-            UserName = "guest",
-            Password = "guest"
+            HostName = configuration["MqConnection:HostName"]!,
+            UserName = configuration["MqConnection:UserName"]!,
+            Password = configuration["MqConnection:Password"]!
         };
         using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();

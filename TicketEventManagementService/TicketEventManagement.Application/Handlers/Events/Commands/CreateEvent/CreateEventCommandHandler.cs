@@ -13,15 +13,17 @@ internal class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, G
 {
     private readonly IBaseRepository<Event> _events;
     private readonly IBaseRepository<Location> _locations;
+    private readonly IBaseRepository<Category> _categories;
 
     private readonly IMapper _mapper;
 
 
     public CreateEventCommandHandler(IBaseRepository<Event> events, 
-        IBaseRepository<Location> locations,IMapper mapper)
+        IBaseRepository<Location> locations, IBaseRepository<Category> categories, IMapper mapper)
     {
         _events = events;
         _locations = locations;
+        _categories = categories;
         _mapper = mapper;
     }
 
@@ -31,6 +33,12 @@ internal class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, G
         if (location is null)
         {
             throw new NotFoundException($"Location with LocationId = {request.LocationId} not found");
+        }
+
+        var category = _categories.SingleOrDefaultAsync(e => e.CategoryId == request.CategoryId, cancellationToken);
+        if (category is null)
+        {
+            throw new NotFoundException($"Category with CategoryId = {request.CategoryId} not found");
         }
 
         var newEvent = new Event(request.LocationId, request.CategoryId, request.Name, request.Description, 

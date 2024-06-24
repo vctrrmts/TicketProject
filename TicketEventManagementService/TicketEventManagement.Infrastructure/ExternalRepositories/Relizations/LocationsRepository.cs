@@ -1,5 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Azure.Core;
 using Microsoft.Extensions.Configuration;
 using TicketEventManagement.Application.ExternalRepositories;
@@ -66,7 +68,8 @@ public class LocationsRepository : ILocationsRepository
         _httpClient.DefaultRequestHeaders.Add("Authorization", accessToken);
         var ticketSearchServiceUrl = _configuration["SearchServiceLocationsApiUrl"];
         var updateLocationApiMethodUrl = $"{ticketSearchServiceUrl}";
-        JsonContent content = JsonContent.Create(location);
+        JsonSerializerOptions options = new JsonSerializerOptions() {ReferenceHandler = ReferenceHandler.IgnoreCycles };
+        JsonContent content = JsonContent.Create(location, options: options);
         var responseMessage = await _httpClient.PutAsync(updateLocationApiMethodUrl, content, cancellationToken);
         if (!responseMessage.IsSuccessStatusCode)
         {

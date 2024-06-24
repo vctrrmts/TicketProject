@@ -50,6 +50,9 @@ services:
     restart: unless-stopped
     ports:
       - "8081:8080"
+    depends_on:
+      - redis
+      - mssql
 
 
   authorization.api:
@@ -60,6 +63,8 @@ services:
     restart: unless-stopped
     ports:
       - "8082:8080"
+    depends_on:
+      - mssql
 
 
   usersmanagement.api:
@@ -70,6 +75,9 @@ services:
     restart: unless-stopped
     ports:
       - "8083:8080"
+    depends_on:
+      - mssql
+      - authorization.api
 
 
   ticketmanagement.api:
@@ -80,6 +88,9 @@ services:
     restart: unless-stopped
     ports:
       - "8084:8080"
+    depends_on:
+      - mssql
+      - ticketsearch.api
 
 
   ticketbuying.api:
@@ -90,6 +101,10 @@ services:
     restart: unless-stopped
     ports:
       - "8085:8080"
+    depends_on:
+      - rabbitmq
+      - mssql
+      - ticketsearch.api
 
 
   notification.api:
@@ -100,6 +115,8 @@ services:
     restart: unless-stopped
     ports:
       - "8086:8080"
+    depends_on:
+      - mssql
        
 
   ticketcontrol.api:
@@ -110,6 +127,9 @@ services:
     restart: unless-stopped
     ports:
       - "8087:8080"
+    depends_on:
+      - mssql
+      - ticketbuying.api
 
 
   eventnotifyapp:
@@ -117,6 +137,12 @@ services:
     build:
       context: .
       dockerfile: NotificationService/EventNotifyApp/Dockerfile
+    depends_on:
+      - mssql
+      - authorization.api
+      - ticketsearch.api
+      - ticketbuying.api
+      - notification.api
 
 
   sendingmailbymq:
@@ -124,4 +150,6 @@ services:
     build:
       context: .
       dockerfile: TicketBuyingService/SendingMailByMq/Dockerfile
+    depends_on:
+      - rabbitmq
 

@@ -7,6 +7,7 @@ using TicketBuying.Application.Exceptions;
 using TicketBuying.Domain;
 using TicketBuying.Application.Utils;
 using Serilog;
+using Microsoft.Extensions.Configuration;
 
 namespace TicketBuying.Application.Handlers.Commands.BuyTicket
 {
@@ -17,12 +18,15 @@ namespace TicketBuying.Application.Handlers.Commands.BuyTicket
 
         private readonly IMqService _mqService;
 
+        private readonly IConfiguration _configuration;
+
         public BuyTicketCommandHandler(IBaseRepository<BuyedTicket> tickets, ITicketsRepository 
-            ticketsProvider, IMqService mqService) 
+            ticketsProvider, IMqService mqService, IConfiguration configuration) 
         {
             _tickets = tickets;
             _ticketsRepository = ticketsProvider;
             _mqService = mqService;
+            _configuration = configuration;
         }
 
         public async Task Handle(BuyTicketCommand request, CancellationToken cancellationToken)
@@ -47,7 +51,7 @@ namespace TicketBuying.Application.Handlers.Commands.BuyTicket
                 ticket.HashGuid = ticketIdHash;
             }
             
-            _mqService.SendMessageToExchange("PurchasedTicketExchange", JsonSerializer.Serialize(tickets));
+            _mqService.SendMessageToExchange("PurchasedTicketExchange", JsonSerializer.Serialize(tickets), _configuration);
 
         }
     }

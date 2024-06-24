@@ -300,8 +300,8 @@ namespace TicketEventSearch.Infrastructure.Migrations
                             "8365E04D-DC59-44A0-A578-61D84349C274",
                             "Государственный оперный театр",
                             "Советская 28",
-                            "28,123",
-                            "131,123",
+                            "28.123",
+                            "131.123",
                             true
                          }
                 });
@@ -675,6 +675,39 @@ namespace TicketEventSearch.Infrastructure.Migrations
                             10
                          }
                 });
+
+            //migrationBuilder.InsertData(
+            //    table: "Events",
+            //    columns: new[] { "EventId", "LocationId", "CategoryId", "Name", "Description", "UriMainImage", "DateTimeEventStart", "DateTimeEventEnd", "IsActive" },
+            //    values: new object[,]
+            //    {
+            //             {
+            //                "ADFFF4E8-6B9D-4E8F-93F3-356CB29ADD55",
+            //                "307642AC-8B65-45DD-89A8-966709B82AFA",
+            //                "4683D27E-B9A4-492C-B082-D3D7C9E6786E",
+            //                "test",
+            //                "test",
+            //                "test.com/fasdfasdfff23f12/f123",
+            //                "2024-07-18 18:00:00.0000000",
+            //                "2024-07-18 20:00:00.0000000",
+            //                true
+            //             }
+            //    });
+
+            //migrationBuilder.InsertData(
+            //    table: "Tickets",
+            //    columns: new[] { "TicketId", "EventId", "SeatId", "Price", "TicketStatusId", "UnavailableStatusEnd" },
+            //    values: new object[,]
+            //    {
+            //             {
+            //                "55CD814D-2D9C-421E-A715-94285F4D0ADE",
+            //                "ADFFF4E8-6B9D-4E8F-93F3-356CB29ADD55",
+            //                "8F3D3C62-FC41-4BE7-9876-8BCF2B02524C",
+            //                50,
+            //                1,
+            //                null
+            //             }
+            //    });
         }
 
         /// <inheritdoc />

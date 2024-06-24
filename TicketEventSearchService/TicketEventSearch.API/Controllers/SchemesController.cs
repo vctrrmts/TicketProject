@@ -32,19 +32,12 @@ public class SchemesController : ControllerBase
     /// <summary>
     /// Update scheme. The command is sent from management service
     /// </summary>
-    [HttpPut("{schemeId}")]
+    [HttpPut]
     public async Task<IActionResult> UpdateAsync(
-        [FromRoute] Guid schemeId,
-        UpdateSchemeCommand dto,
+        UpdateSchemeCommand updateSchemeCommand,
         IMediator mediator,
         CancellationToken cancellationToken)
     {
-        UpdateSchemeCommand updateSchemeCommand = new UpdateSchemeCommand()
-        {
-            SchemeId = schemeId,
-            Name = dto.Name,
-            IsActive = dto.IsActive,
-        };
         await mediator.Send(updateSchemeCommand, cancellationToken);
         return Ok();
     }
